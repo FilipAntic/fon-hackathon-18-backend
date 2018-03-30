@@ -1,0 +1,16 @@
+{
+  "name": "fon-hackathon-18",
+  "version": "1.0.0",
+  "description": "Ovo je projekat za hakaton",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "fon",
+    "hackathon"
+  ],
+  "author": "Rafaton",
+  "license": "ISC"
+}
