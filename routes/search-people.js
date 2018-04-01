@@ -3,6 +3,27 @@ const router = express.Router();
 const queries = require('../database/databaseOperation');
 const table = 'korisnik';
 
+
+router.get('/clusters', (req, res, next) => {
+    queries.getClusters('korisnik').then(user => {
+        res.status(200).json(user);
+    });
+});
+
+router.get('/devices', (req, res, next) => {
+    let start = req.query.start;
+    let end = req.query.end;
+    queries.getDevices('korisnik', start, end).then(user => {
+        res.status(200).json(user);
+    });
+});
+
+router.get('/predicted', (req, res, next) => {
+    queries.getPredicted().then(user => {
+        res.status(200).json(user);
+    });
+});
+
 router.get('/:id?', (req, res, next) => {
 
     if (req.params.id) {

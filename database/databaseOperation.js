@@ -30,7 +30,22 @@ class DatabaseQueries {
         // }
     }
 
+    getClusters(table) {
+        return sql.query(`SELECT count(korisnik.cluster) as cluster, korisnik.cluster as podaci, usluge.ime FROM  ${table} inner join usluge on korisnik.id_usluga=usluge.id group by korisnik.cluster`);
+    }
 
+    getDevices(table, startRange, endRange) {
+        if (endRange && startRange) {
+            return sql.query(`SELECT count(*) as devices from ${table} where device_cost >` + startRange + ` and device_cost <` + endRange);
+        } else if (!endRange) {
+            return sql.query(`SELECT count(*) as devices from ${table} where device_cost <` + startRange);
+        }
+
+    }
+
+    getPredicted(table) {
+        return sql.query(`SELECT count(all_data.broj_pozivaoca) as pozivaoc, all_data.broj_primaoca as primaoc FROM  all_data where all_data.tip_zapisa='ODLAZNI SMS'  group by broj_primaoca having count(all_data.broj_pozivaoca)>100 ORDER BY pozivaoc desc`);
+    }
 
     insert(table, object) {
         return sql.query(`INSERT INTO ${table} SET ?`, [object]);
